@@ -6,13 +6,13 @@ class Question(models.Model):
 
     question_text = models.CharField(max_length=200)
     
-    pub_date = models.DateTimeField("date_published",auto_now_add=True )
+    pub_date = models.DateTimeField("date_published",default=timezone.now)
     
     def __str__(self):
         return f"{self.id}: {self.question_text}"
     
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        return timezone.now() >= self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
 class Choice(models.Model):
     
